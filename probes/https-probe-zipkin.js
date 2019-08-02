@@ -88,6 +88,7 @@ HttpsProbeZipkin.prototype.attach = function(name, target) {
           var res = args[1];
           // Filter out urls where filter.to is ''
           var traceUrl = parse(httpsReq.url);
+          if (['/healthz', '/metrics'].includes(httpReq.url)) return;
           if (traceUrl !== '') {
             const method = httpsReq.method;
 
