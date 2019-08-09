@@ -64,6 +64,9 @@ HttpOutboundProbeZipkin.prototype.attach = function(name, target) {
       function(obj, methodName, methodArgs, probeData) {
         // Get HTTP request method from options
         var options = methodArgs[0];
+        if (options.body.includes('healthz') || options.body.includes('metrics')) {
+          return;
+        }
         var requestMethod = 'GET';
         var urlRequested = '';
         if (typeof options === 'object') {
